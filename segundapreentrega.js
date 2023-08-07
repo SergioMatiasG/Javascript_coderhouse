@@ -50,7 +50,7 @@ console.log(productosOrdenados)
 const productosListado = PRODUCTOS.map(producto => "• "+producto.nombre).join("\n")
 
 const carrito = []
-
+let precioTotal = 0
 while(true){
 
     const productoDeseado = prompt(`¿Que producto desea comprar? : \n${productosListado}`)
@@ -62,20 +62,21 @@ while(true){
     if (productoEncontrado){
         if (productoEncontrado.cantidad > 0){
             carrito.push(productoEncontrado)
-            alert(`Su producto esta en camino :
+            precioTotal = precioTotal + productoEncontrado.precio
+            productoEncontrado.cantidad --
+            alert(`Su producto esta siendo procesado :
             Nombre : ${productoEncontrado.nombre}
             Precio : ${productoEncontrado.precio}
             Categoria : ${productoEncontrado.categoria}
             ID : ${productoEncontrado.id}
-            ${productoEncontrado.cantidad --}
             Stock despues de compra : ${productoEncontrado.cantidad}
-            Carrito de compras :\n${carrito.map(producto => "• "+ producto.nombre).join("\n")}`)
+            Carrito de compras : ${precioTotal}\n${carrito.map(producto => "• "+ producto.nombre).join("\n")}`)
         } else {
             alert(`Producto agotado`)
         }
     } else {
         alert(`Producto no encontrado elija uno de la lista`)
     } 
-    console.log(carrito)
-    
 }
+console.log(carrito) 
+alert (`Su pedido esta siendo armado y su precio es de : ${precioTotal}.\nMuchas gracias por su compra, vuelva pronto`)
