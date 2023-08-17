@@ -119,7 +119,7 @@ const cartas = array =>{
                     <h5 class="card-title">${elemento.producto}</h5>
                     <p class="card-text">Categoria: ${elemento.categoria}</p>
                     <p class="card-text">Precio: ${elemento.precio}</p>
-                    <p class="card-text"></p>
+                    <p class="card-text">Marca: ${elemento.marca}</p>
                     <p class="card-text"><small class="text-muted">${elemento.descripcion}</small></p>
                     <button class="btn btn-dark btn-lg agregar">Agregar al carrito</button>
                 </div>
@@ -148,20 +148,46 @@ function agregarAlCarrito(producto) {
 }
 
 const mostrarCarrito = document.querySelector(".btncarrito")
+const tablaCarrito = document.querySelector(".tablacarrito")
 
 mostrarCarrito.addEventListener("click", () =>{
     const carrito = JSON.parse(localStorage.getItem("carrito"))
     if ( carrito && carrito.length > 0){
-        const productosEnCarrito = carrito.map(producto => producto.producto).join(`\n`)
-        alert(`Productos en el carrito: \n${productosEnCarrito}`)
-    }else{
-        alert("El carrito esta vacio")
+        tablaCarrito.innerHTML = ""
+        let total = 0
+        const tablaHTML = 
+            `
+            <thead>
+                <tr>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                    
+                </tr>
+            </thead>
+            <tbody>
+                ${carrito.map(producto =>{
+                  total += producto.precio
+                   return `
+                <tr>
+                <td>${producto.producto}:</td>
+                <td>$${producto.precio} </td>
+                </tr>
+                `}).join("")}
+                
+            <tr>
+                    <td><strong>Total:</strong></td>
+                    <td><strong>$${total}</strong></td>
+            </tr>
+            </tbody>
+            `
+            tablaCarrito.innerHTML = tablaHTML
+    } else{
+        tablaCarrito.innerHTML = "El carrito esta vacio"
     }
 })
 
 const borrarCarrito = document.querySelector(".btnborrarcarrito")
 
-borrarCarrito.addEventListener("click",() => {
+borrarCarrito.addEventListener("click", () =>{
     localStorage.removeItem("carrito")
-    alert("El carrito fue borrado del almacenamiento")
 })

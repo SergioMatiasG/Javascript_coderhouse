@@ -19,3 +19,18 @@
     margin-bottom: 20px;
 
 }
+table {
+    border: 1px solid black;
+    border-collapse: separate;
+    border-spacing: 0 10px; 
+    width: 95%;
+    margin: 3em;
+
+}
+
+th, td {
+    
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
